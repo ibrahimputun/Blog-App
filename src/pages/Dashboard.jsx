@@ -1,11 +1,41 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import useBlogCalls from "../hooks/useBlogCalls";
+import { useSelector } from "react-redux";
+import { Grid } from "@mui/material";
+import Card from "../components/blog/Card";
+import Buttons from "./Buttons";
 
 const Dashboard = () => {
+  const { getBlogs } = useBlogCalls();
+  const { data, error, loading, totalPages, currentPage, nextPage } =useSelector((state) => state.blog);
+  
+
+  const [page, setPage] = useState(currentPage);
+  useEffect(() => {
+    getBlogs(page);
+  }, [page]);
+ 
+
   return (
     <div>
-      
-    </div>
-  )
-}
+      {!loading && !error && data.length > 0 && (
+        <>
+          <Grid container gap={2} mt={3} justifyContent={"center"}>
+            {data?.map((blog) => (
+              <Grid item key={blog._id}>
+                <Card  page={page} blog={blog} />
+              </Grid>
+            ))}
+          </Grid>
+          <Grid  container  mt={3} mb={3} justifyContent="center">
+          <Buttons  setPage={setPage}  />
 
-export default Dashboard
+          </Grid>
+               </>
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;
+
