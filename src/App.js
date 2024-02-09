@@ -1,8 +1,31 @@
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import AppRouter from "./router/AppRouter"
+import { purple, } from "@mui/material/colors"
+import { Provider } from "react-redux"
+import store, { persistor } from "./app/store"
+import { ToastContainer } from "react-toastify"
+import { PersistGate } from "redux-persist/integration/react"
+
 function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: purple["900"],
+      },
+
+    },
+  })
   return (
-    <div>
-      <h1>React App</h1>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppRouter />
+          </PersistGate>
+        </Provider>
+        <ToastContainer />
+      </ThemeProvider>
+    </>
   )
 }
 
