@@ -28,7 +28,7 @@ export default function Footer() {
   }}
 >
   {"Copyright © "}
-  <Link color="inherit" href="https://mui.com/" style={{ marginRight: '10px' }}>
+  <Link color="inherit" href="" style={{ marginRight: '10px' }}>
     Your Website
   </Link>
   {new Date().getFullYear()}
