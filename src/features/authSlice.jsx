@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: false,
   token: "",
+  id: ""
 }
 
 const authSlice = createSlice({
@@ -18,6 +19,7 @@ const authSlice = createSlice({
       state.loading = false
       state.user = payload.user.username
       state.token = payload.token
+      state.id = payload.user._id
     },
     registerSuccess: (state, { payload }) => {
       state.loading = false
@@ -45,4 +47,3 @@ export const {
 } = authSlice.actions
 
 export default authSlice.reducer
-
