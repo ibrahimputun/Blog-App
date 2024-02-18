@@ -114,8 +114,8 @@ const MyBlogs = () => {
               variant="contained"
               style={{
                 width: "100%",
-                backgroundColor: "lightgreen",
-                borderRadius: "7px",
+                backgroundColor: "purple",
+                borderRadius: "5px",
               }}
             >
               Read More
