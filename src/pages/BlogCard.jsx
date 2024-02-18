@@ -1,24 +1,33 @@
-import React from "react";
-import { Card, CardContent, Typography, CardMedia, CardActions, Button } from "@mui/material";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import { btnStyle } from "../styles/globalStyles";
+import useBlogCalls from "../hooks/useBlogCalls";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { btnStyle } from "../styles/globalStyles";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Button from "@mui/material/Button";
 
 
-export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick }) {
+
+export default function BlogCard({ blog ,page }) {
+  const { deleteBlog ,likeBlog } = useBlogCalls();
+
   const { id } = useSelector((state) => state.auth);
   const { currentPage } = useSelector((state) => state.blog);
-
-  const handleLike = () => {
-    onLike(blog._id, currentPage);
-  };
-
-  const fav = blog.likes.includes(id);
-
-  const handleDelete = () => {
-    onDelete(blog._id, page);
+ console.log(currentPage);
+  const navigate = useNavigate();
+  
+//  console.log(blog)
+  const handleReadMoreClick = () => {
+    navigate(`/BlogDetails/${blog._id}`); // Assuming your "BlogDetails" route expects a parameter named "blogId"
   };
   const truncateContent = (content, maxWords) => {
     const words = content.split(" ");
@@ -28,7 +37,21 @@ export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick
       return content;
     }
   };
+
+  const handleLike = () => {
+    likeBlog(blog._id ,currentPage)
+    console.log(blog._id);
+    console.log(currentPage);
+    
+
+    
+  };
+
+  const fav  = (blog.likes.includes(id))
   
+  const handleDelete = () => {
+    deleteBlog(blog._id ,page);
+  };
 
   return (
     <Card
@@ -48,7 +71,7 @@ export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick
           {blog.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Published Date : {blog.updatedAt}
+          PulieshedDate : {blog.updatedAt}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Content : {truncateContent(blog.content, 1)}
@@ -70,14 +93,14 @@ export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick
           paddingRight: "16px",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "6px" }}>
+         <div style={{ display :" flex", flexDirection: "column",justifyContent: "center" , alignItems: "center", gap: "6px" }}>
           <Button
-            onClick={() => onReadMoreClick(blog._id)}
+            onClick={handleReadMoreClick}
             variant="contained"
             style={{
               width: "100%",
               backgroundColor: "purple",
-              borderRadius: "4px",
+              borderRadius: "5px",
             }}
           >
             Read More
@@ -87,10 +110,10 @@ export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick
               onClick={handleDelete}
               variant="contained"
               style={{
-                width: "100%",
-                backgroundColor: "red",
+                width: "60%",
+                backgroundColor: "purple",
                 margin: "5px",
-                borderRadius: "7px",
+                borderRadius: "5px",
               }}
             >
               DELETE
@@ -98,7 +121,7 @@ export default function BlogCard({ blog, page, onDelete, onLike, onReadMoreClick
           )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <FavoriteIcon sx={btnStyle} onClick={handleLike} style={fav ? { color: "red" } : { color: "black" }} />
+          <FavoriteIcon sx={btnStyle} onClick={handleLike} style={fav ? { color: "red" } : { color: "black" }}/>
           {blog.likes.length}
           <CommentIcon sx={btnStyle} onClick={() => {}} />
           {blog.comments.length}

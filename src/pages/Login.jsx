@@ -1,31 +1,20 @@
-import Avatar from "@mui/material/Avatar"
-import Container from "@mui/material/Container"
-import Grid from "@mui/material/Grid"
-import Typography from "@mui/material/Typography"
-import { Link } from "react-router-dom"
-import Box from "@mui/material/Box"
-import useAuthCalls from "../hooks/useAuthCalls"
-import { ThemeProvider } from "@emotion/react"
-import { Button, Checkbox, CssBaseline, FormControlLabel, TextField, createTheme } from "@mui/material"
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useAuthCalls from "../hooks/useAuthCalls";
 
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const defaultTheme = createTheme();
 
@@ -49,6 +38,10 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
+            mt: 1,
+            border: '2px solid purple',
+            borderRadius: 5, // İsterseniz köşeleri yuvarlatabilirsiniz
+            p: 3, // İçeride biraz boşluk ekleyebilirsiniz
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
@@ -56,7 +49,7 @@ export default function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            
+            <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
@@ -65,7 +58,13 @@ export default function SignIn() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ 
+              mt: 1,
+              border: '2px solid purple', // 2px genişliğinde mor kenarlık
+              borderRadius: 5, // İsterseniz köşeleri yuvarlatabilirsiniz
+              p: 3, // İçeride biraz boşluk ekleyebilirsiniz
+            }}
+            
           >
             <TextField
               margin="normal"
@@ -76,6 +75,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              
             />
             <TextField
               margin="normal"
@@ -86,27 +86,32 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="primary" sx={{ color: 'purple' }} />}
               label="Remember me"
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: 'purple', // Arkaplan rengi purple
+              }}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2"sx={{ color: 'purple' }}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item xs>
-                <Link href="/register" variant="body2">
+                <Link href="/register" variant="body2" sx={{ color: 'purple' }}>
                Don't you have an account? Sign up
                 </Link>
               </Grid>
@@ -114,7 +119,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+      
       </Container>
     </ThemeProvider>
   );

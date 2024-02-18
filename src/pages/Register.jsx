@@ -5,7 +5,7 @@ import LockIcon from "@mui/icons-material/Lock"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import { Link } from "react-router-dom"
-import RegisterForm, { registerSchema } from "../components/auth/RegisterForm";
+import RegisterForm, { registerSchema } from "./RegisterForm"
 import { Formik } from "formik"
 import useAuthCalls from "../hooks/useAuthCalls"
 
@@ -79,4 +79,3 @@ const Register = () => {
 }
 
 export default Register
-
