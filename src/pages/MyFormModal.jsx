@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useBlogCalls from "../hooks/useBlogCalls";
 import { modalStyle } from "../styles/globalStyles";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextareaAutosize,
-} from "@mui/material";
+import {  FormControl,  InputLabel,  MenuItem,  Select,  TextareaAutosize,} from "@mui/material";
 
 const MyFormModal = ({ blogDetails, open, setOpen }) => {
   const navigate = useNavigate();
@@ -36,7 +29,7 @@ const MyFormModal = ({ blogDetails, open, setOpen }) => {
     getCategories();
   }, []);
 
-  const [status, setStatus] = useState(["Draft", "Published"]);
+  const [status, ] = useState(["Draft", "Published"]);
 
   const [formData, setFormData] = useState({
     title: blogDetails?.title,

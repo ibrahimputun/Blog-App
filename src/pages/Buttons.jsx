@@ -13,16 +13,21 @@ export default function Buttons({ setPage }) {
   return (
     <ButtonGroup variant="contained" aria-label="outlined primary button group">
       <Button 
-      disabled={isPreviousDisabled} 
-      onClick={() => setPage(currentPage - 1)
-      }
-      sx={{ backgroundColor: 'purple', color: 'white' }} // Arka plan ve yazı rengi ayarlandı
-      >PREV</Button>
-      <Button disabled={isNextDisabled} onClick={() => setPage(currentPage + 1)}
-      sx={{ backgroundColor: 'purple', color: 'white' }} // Arka plan ve yazı rengi ayarlandı
+        disabled={isPreviousDisabled} 
+        onClick={() => setPage(currentPage - 1)}
+        sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkblue' } }}
       >
-        NEXT</Button>
+        PREV
+      </Button>
+      <Button 
+        disabled={isNextDisabled} 
+        onClick={() => setPage(currentPage + 1)}
+        sx={{ backgroundColor: 'purple', color: 'white', '&:hover': { backgroundColor: 'darkblue' } }}
+      >
+        NEXT
+      </Button>
     </ButtonGroup>
   );
 }
+
 

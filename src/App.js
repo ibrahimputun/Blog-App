@@ -5,16 +5,18 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./app/store";
 import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
-import { purple } from "@mui/material/colors";
+import { blue, purple } from "@mui/material/colors";
 
 function App() {
   const theme = createTheme({
-    primary: {
-      main: purple["900"],
-
-
+    palette: {
+      primary: {
+        main: blue["900"], // Örnek olarak blue renk tonunu kullandım
+      },
+      secondary: {
+        main: purple["900"], // Örnek olarak purple renk tonunu kullandım
+      },
     },
-
   });
   return (
     <ThemeProvider theme={theme}>

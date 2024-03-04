@@ -6,50 +6,49 @@ import { Box, Paper } from "@mui/material";
 export default function Footer() {
   return (
     <Paper
-    sx={{
-      marginTop: 'calc(10% + 60px)',
-      bottom: 0,
-      backgroundColor: 'purple',
-    }}
-    component="footer"
-    square
-    variant="outlined"
-  >
-    <Container maxWidth="lg" >
-  <Box
+       id="myFooter" // Özelleştirilmiş ID
   sx={{
-    flexGrow: 1,
-    justifyContent: "center",
-    display: "flex",
-    my: 1,
-    color: 'white', // Yeni eklenen satır
-    fontFamily: 'Arial',
-    textDecoration: 'none'
+    position: 'fixed',
+    left: 0,
+    bottom: 0,
+    width: '100%',
+
+    backgroundColor: 'purple',
+    
   }}
->
-  {"Copyright © "}
-  <Link color="inherit" href="" style={{ marginRight: '10px' }}>
-    Your Website
-  </Link>
-  {new Date().getFullYear()}
- 
-</Box>
+  component="footer"
+  square
+  variant="outlined"
+    >
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            flexGrow: 1,
+            justifyContent: "center",
+            display: "flex",
+            my: 1,
+            color: 'white',
+            fontFamily: 'Arial',
+            textDecoration: 'none'
+          }}
+        >
+          {"Copyright © "}
+          <Link color="inherit" href="" style={{ marginRight: '10px' }}>
+            Your Website
+          </Link>
+          {new Date().getFullYear()}
+        </Box>
 
-      <Box
-        sx={{
-          flexGrow: 1,
-          justifyContent: "center",
-          display: "flex",
-          mb: 2,
-        }}
-      >
-       
-      </Box>
-    </Container>
-  </Paper>
-);
+        <Box
+          sx={{
+            flexGrow: 1,
+            justifyContent: "center",
+            display: "flex",
+            mb: 2,
+          }}
+        ></Box>
+      </Container>
+    </Paper>
+  );
 }
-
-
-
 

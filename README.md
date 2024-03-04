@@ -174,8 +174,8 @@ Build a Milestone Blog App using ReactJS.
 - Post Read/List
 
 ```javascript
-    // Pagination yapısı backend tarafından ayarlandı. 
-   //  page bilgisi gelen response ta var oradan kaç sayfa olduğunu yakalayabilirsiniz. 
+    // Pagination yapısı backend tarafından ayarlandı.
+   //  page bilgisi gelen response ta var oradan kaç sayfa olduğunu yakalayabilirsiniz.
    //  Default olarak her sayfada 25 veri sergileniyor. Bunu manuel olarak istek atarken ayarlayabilirsiniz. Örneğin;
     //?page=1&limit=10
 

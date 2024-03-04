@@ -42,12 +42,7 @@ const ProfilePage = () => {
             <Typography variant="subtitle1" color="textSecondary" mt={1}>
               {isValidString(user.phone) ? `Phone: ${user.phone}` : 'Invalid Phone'}
             </Typography>
-            {/* Diğer profil bilgilerini ekleyebilirsiniz */}
-            {/* Örneğin: 
-              <Typography variant="subtitle1" color="textSecondary" mt={1}>
-                Telefon: {isValidString(user.phone) ? user.phone : 'Invalid Phone'}
-              </Typography>
-            */}
+           
             <Box mt={2}>
               <Button variant="outlined" onClick={() => { /* Kullanıcı profilini düzenleme işlevi */ }}>
                 Edit Profile

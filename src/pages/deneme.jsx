@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,41 +13,36 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useAuthCalls from '../hooks/useAuthCalls';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
+function SignIn() {
+  const defaultTheme = createTheme();
+  const { login } = useAuthCalls();
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+  const [info, setInfo] = useState({
+    email: '',
+    password: '',
+    categoryId: '',
+  });
 
+  const categories = []; // Kategorileri burada tanımlamanız gerekir.
 
-
-const defaultTheme = createTheme();
-
-export default function SignIn() {
-const {login} = useAuthCalls()
+  const handleChange = (event) => {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
     const userInfo = {
       email: data.get('email'),
       password: data.get('password'),
+      categoryId: data.get('categoryId'),
     };
-    login(userInfo)
-    console.log(userInfo);
+    login(userInfo);
   };
 
   return (
@@ -78,6 +73,8 @@ const {login} = useAuthCalls()
               name="email"
               autoComplete="email"
               autoFocus
+              value={info.email}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -88,24 +85,9 @@ const {login} = useAuthCalls()
               type="password"
               id="password"
               autoComplete="current-password"
+              value={info.password}
+              onChange={handleChange}
             />
-               <FormControl fullWidth>
-              <InputLabel id="categoryId">Category</InputLabel>
-              <Select
-                labelId="categoryId"
-                id="categoryId"
-                name="categoryId"
-                value={info.categoryId}
-                label="Category"
-                onChange={handleChange}
-              >
-                {categories.map((item) => (
-                  <MenuItem key={item._id} value={item._id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <FormControl fullWidth>
               <InputLabel id="categoryId">Category</InputLabel>
               <Select
@@ -123,16 +105,6 @@ const {login} = useAuthCalls()
                 ))}
               </Select>
             </FormControl>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -159,8 +131,9 @@ const {login} = useAuthCalls()
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
 }
+
+export default SignIn;

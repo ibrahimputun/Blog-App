@@ -6,7 +6,7 @@ export default function CommentCard({ comment }) {
     <Card>
       <CardContent>
         <Typography variant="body2">{comment.text}</Typography>
-        {/* Gerekirse diğer comment bilgilerini ekleyebilirsiniz */}
+        
       </CardContent>
     </Card>
   );

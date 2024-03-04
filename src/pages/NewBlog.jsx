@@ -21,7 +21,7 @@ export default function NewBlog() {
     getCategories();
   }, []);
 
-  const [status, setStatus] = useState(["Draft", "Published"]);
+  const [status,] = useState(["Draft", "Published"]);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -114,7 +114,7 @@ export default function NewBlog() {
             placeholder="Enter your text here..."
             value={formData.content}
             onChange={handleChange}
-            style={{ width: "100%" }}
+            style={{ width: "%" }}
           />
           <Button type="submit" variant="contained" size="large">
             NEW BLOG

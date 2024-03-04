@@ -1,48 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import {
-  Container,
-  Paper,
-  Grid,
-  Typography,
-  Avatar,
-  Box,
-  AppBar,
-  Toolbar,
-} from "@mui/material";
-import { DoneAll, Code, Settings } from "@mui/icons-material";
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
+import {  Container,  Grid,  Typography,  Avatar,  Box,  Button,} from "@mui/material";
+import { DoneAll } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 import { btnStyle } from "../styles/globalStyles";
 import useBlogCalls from "../hooks/useBlogCalls";
-
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Button from "@mui/material/Button";
 import MyFormModal from "./MyFormModal";
-// import { btnStyle } from "../styles/globalStyles";
 
 function BlogDetails() {
   const { paramId } = useParams();
+  const { deleteBlog, getBlogById, likeBlog } = useBlogCalls();
+  const [open, setOpen] = useState(false);
 
-  const { deleteBlog, getBlogById ,likeBlog } = useBlogCalls();
-
-  const [open, setOpen] = useState();
-
-  const { imageUrl, title, content, blogId, userId, updatedAt ,likes , comments , countOfVistors} = useSelector((state) => state.blog );
-  const { id } = useSelector((state) => state.auth );
-  console.log( blogId, userId);
+  const { imageUrl, title, content, blogId, userId, updatedAt, likes, comments, countOfVistors } = useSelector((state) => state.blog);
+  const { id } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
+
   const handleDelete = () => {
     deleteBlog(blogId);
     navigate("/myblogs");
@@ -50,7 +28,7 @@ function BlogDetails() {
 
   useEffect(() => {
     getBlogById(paramId);
-  }, []);
+  }, [paramId]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,16 +37,17 @@ function BlogDetails() {
   const handleUpdateBlog = () => {
     handleOpen();
   };
+
   const handleLike = () => {
-    likeBlog(blogId)
-   
-    
+    likeBlog(blogId);
   };
-  const fav = likes.includes(id)
+
+  const isLiked = likes.includes(id);
+
   return (
     <div>
       <MyFormModal
-      blogDetails={{ imageUrl, title, content, blogId, userId, updatedAt }}
+        blogDetails={{ imageUrl, title, content, blogId, userId, updatedAt }}
         handleOpen={handleOpen}
         setOpen={setOpen}
         open={open}
@@ -114,17 +93,18 @@ function BlogDetails() {
           </Typography>
         </Box>
 
-        <Grid textAlign={"center"}>
+        <Grid container spacing={2} justifyContent="center">
           {userId && userId === id ? (
             <>
               <Button
                 onClick={handleUpdateBlog}
                 variant="contained"
-                style={{
-                  width: "%40",
+                sx={{
+                  width: "40%",
                   height: "2rem",
                   backgroundColor: "purple",
                   borderRadius: "5px",
+                  marginRight: "5px",
                 }}
               >
                 Update
@@ -132,12 +112,10 @@ function BlogDetails() {
               <Button
                 onClick={handleDelete}
                 variant="contained"
-                style={{
-                  width: "%40",
+                sx={{
+                  width: "40%",
                   backgroundColor: "red",
-                  margin: "5px",
                   height: "2rem",
-
                   borderRadius: "5px",
                 }}
               >
@@ -146,17 +124,28 @@ function BlogDetails() {
             </>
           ) : null}
         </Grid>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <FavoriteIcon sx={btnStyle} onClick={handleLike} style={fav ? { color: "red" } : { color: "black" }}/>
-          {likes.length}
-          <CommentIcon sx={btnStyle} onClick={() => {}} />
-          {comments.length}
-          <VisibilityIcon sx={btnStyle} onClick={() => {}} />
-          {countOfVistors}
-        </div>
-      </Container>
-    </div>
-  );
-}
+
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "10px" }}>
+            <FavoriteIcon
+              sx={{ ...btnStyle, marginBottom: "10px" }}
+              onClick={handleLike}
+              style={isLiked ? { color: "red" } : { color: "black" }}
+            />
+            <Typography component="div" sx={{ marginBottom: "2px", marginRight: "10px" }}>
+              {likes.length}
+            </Typography>
+
+            <CommentIcon sx={{ ...btnStyle, marginBottom: "10px", marginRight: "10px" }} onClick={() => {}} />
+            <Typography component="div" sx={{ marginBottom: "4px", marginRight: "10px" }}>
+              {comments.length}
+            </Typography>
+
+            <VisibilityIcon sx={{ ...btnStyle, marginBottom: "10px" }} onClick={() => {}} />
+            <Typography component="div">{countOfVistors}</Typography>
+          </div>
+                </Container>
+              </div>
+            );
+          }
 
 export default BlogDetails;

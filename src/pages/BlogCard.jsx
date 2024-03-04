@@ -4,31 +4,26 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
+
 import { btnStyle } from "../styles/globalStyles";
 import useBlogCalls from "../hooks/useBlogCalls";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 
-
-
-export default function BlogCard({ blog ,page }) {
-  const { deleteBlog ,likeBlog } = useBlogCalls();
-
+export default function BlogCard({ blog, page }) {
+  const { deleteBlog, likeBlog } = useBlogCalls();
   const { id } = useSelector((state) => state.auth);
   const { currentPage } = useSelector((state) => state.blog);
- console.log(currentPage);
   const navigate = useNavigate();
-  
-//  console.log(blog)
+
   const handleReadMoreClick = () => {
-    navigate(`/BlogDetails/${blog._id}`); // Assuming your "BlogDetails" route expects a parameter named "blogId"
+    navigate(`/BlogDetails/${blog._id}`);
   };
+
   const truncateContent = (content, maxWords) => {
     const words = content.split(" ");
     if (words.length > maxWords) {
@@ -39,18 +34,13 @@ export default function BlogCard({ blog ,page }) {
   };
 
   const handleLike = () => {
-    likeBlog(blog._id ,currentPage)
-    console.log(blog._id);
-    console.log(currentPage);
-    
-
-    
+    likeBlog(blog._id, currentPage);
   };
 
-  const fav  = (blog.likes.includes(id))
-  
+  const fav = blog.likes.includes(id);
+
   const handleDelete = () => {
-    deleteBlog(blog._id ,page);
+    deleteBlog(blog._id, page);
   };
 
   return (
@@ -93,14 +83,25 @@ export default function BlogCard({ blog ,page }) {
           paddingRight: "16px",
         }}
       >
-         <div style={{ display :" flex", flexDirection: "column",justifyContent: "center" , alignItems: "center", gap: "6px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "6px",
+          }}
+        >
           <Button
             onClick={handleReadMoreClick}
             variant="contained"
-            style={{
+            sx={{
               width: "100%",
               backgroundColor: "purple",
               borderRadius: "5px",
+              '&:hover': {
+                backgroundColor: 'darkblue',
+              },
             }}
           >
             Read More
@@ -109,19 +110,33 @@ export default function BlogCard({ blog ,page }) {
             <Button
               onClick={handleDelete}
               variant="contained"
-              style={{
+              sx={{
                 width: "60%",
                 backgroundColor: "purple",
                 margin: "5px",
                 borderRadius: "5px",
+                '&:hover': {
+                  backgroundColor: 'darkblue',
+                },
+                
               }}
             >
               DELETE
             </Button>
           )}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <FavoriteIcon sx={btnStyle} onClick={handleLike} style={fav ? { color: "red" } : { color: "black" }}/>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+          }}
+        >
+          <FavoriteIcon
+            sx={btnStyle}
+            onClick={handleLike}
+            style={fav ? { color: "red" } : { color: "black" }}
+          />
           {blog.likes.length}
           <CommentIcon sx={btnStyle} onClick={() => {}} />
           {blog.comments.length}
